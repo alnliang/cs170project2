@@ -28,8 +28,7 @@ class Node:
         for feature in additonal_feature:
             new_subset = copy.deepcopy(self.subset)
             new_subset.append(feature)
-            self.next.append(new_subset)
-        return self.next
+            self.next.append(Node(new_subset))
     def get_prev_states(self, num_feature):
         removable_feature = self.remove_feature(num_feature)
         for feature in removable_feature:
@@ -38,28 +37,25 @@ class Node:
             newNode = Node(new_subset)
             self.prev.append(newNode)
         return self.prev
-    def getHighestPrevAccuracy(self):
-        max = 0
-        for node in self.prev:
-            if node.get_accuracy > max:
-                max = node.get_accuracy
-        return max
     def printAllPrev(self):
         for prevNode in self.prev:
             print(prevNode.subset)
-        
+    def get_highest_child_accuracy(self):
+        child = self.next[0]
+        for i in range(1,len(self.next)):
+            if self.next[i].accuracy > child.accuracy:
+                child = self.next[i]
+        return child
 
-n1 = Node([])
-#print(n1.additional_feature(4))
-print(n1.get_next_states(4))
-n2 = Node([1])
-#print(n2.additional_feature(4))
-print(n2.get_next_states(4))
-n3 = Node([1,2])
-n4 = Node([1,2,3])
-n5 = Node([1,2,3,4])
-n5.get_prev_states(4)
-n5.printAllPrev()
+
+# n1 = Node([])
+# print(n1.additional_feature(4))
+# print(n1.get_next_states(4))
+# n2 = Node([1])
+# print(n2.additional_feature(4))
+# n3 = Node([1,2])
+# n4 = Node([1,2,3])
+# n5 = Node([1,2,3,4])
 # print(len(n1.subset))
         
 

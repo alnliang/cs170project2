@@ -22,17 +22,23 @@ class Node:
         for feature in additonal_feature:
             new_subset = copy.deepcopy(self.subset)
             new_subset.append(feature)
-            self.next.append(new_subset)
+            self.next.append(Node(new_subset))
+    def get_highest_child_accuracy(self):
+        child = self.next[0]
+        for i in range(1,len(self.next)):
+            if self.next[i].accuracy > child.accuracy:
+                child = self.next[i]
+        return child
 
 
-n1 = Node([])
-print(n1.additional_feature(4))
-print(n1.get_next_states(4))
-n2 = Node([1])
-print(n2.additional_feature(4))
-n3 = Node([1,2])
-n4 = Node([1,2,3])
-n5 = Node([1,2,3,4])
-print(len(n1.subset))
+# n1 = Node([])
+# print(n1.additional_feature(4))
+# print(n1.get_next_states(4))
+# n2 = Node([1])
+# print(n2.additional_feature(4))
+# n3 = Node([1,2])
+# n4 = Node([1,2,3])
+# n5 = Node([1,2,3,4])
+# print(len(n1.subset))
         
 

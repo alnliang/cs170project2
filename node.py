@@ -35,7 +35,4 @@ n4 = Node([1,2,3])
 n5 = Node([1,2,3,4])
 print(len(n1.subset))
         
-list1 = [1, 2, 3, 4]
-list2 = [1, 2]
-unique_to_list1 = [i for i in list1 if i not in list2]
-print(unique_to_list1)
+

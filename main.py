@@ -3,15 +3,13 @@ import random
 def forward(feature):
     trace = []
     explored = []
-    intitial_node = Node({})
-    intitial_node.get_accuracy()
-    trace.append(intitial_node)
+    curr_node = Node({})
+    curr_node.get_accuracy()
+    trace.append(curr_node)
     reached_end_state =False
-    while reached_end_state == False:
-        if len(explored[0] == feature):
-            reached_end_state = False
-            break
-        
+    while len(curr_node.subset) != feature:
+        continue
+
     return trace
 def backward():
     return

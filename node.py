@@ -31,14 +31,14 @@ class Node:
         return child
 
 
-n1 = Node([])
-print(n1.additional_feature(4))
-print(n1.get_next_states(4))
-n2 = Node([1])
-print(n2.additional_feature(4))
-n3 = Node([1,2])
-n4 = Node([1,2,3])
-n5 = Node([1,2,3,4])
-print(len(n1.subset))
+# n1 = Node([])
+# print(n1.additional_feature(4))
+# print(n1.get_next_states(4))
+# n2 = Node([1])
+# print(n2.additional_feature(4))
+# n3 = Node([1,2])
+# n4 = Node([1,2,3])
+# n5 = Node([1,2,3,4])
+# print(len(n1.subset))
         
 

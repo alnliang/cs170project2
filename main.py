@@ -3,14 +3,18 @@ import random
 def forward(feature):
     trace = []
     explored = []
-    curr_node = Node({})
+    curr_node = Node([])
     curr_node.get_accuracy()
     trace.append(curr_node)
-    reached_end_state =False
     while len(curr_node.subset) != feature:
-        continue
+        curr_node.get_next_states(feature)
+        for state in curr_node.next:
+            state.get_accuracy()
+            trace.append(state)
+        
 
     return trace
+forward(4)
 def backward():
     return
 def special():

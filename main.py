@@ -19,34 +19,35 @@ def forward(feature):
 def backward(num_features):
     trace = []
     explored = []
-    features = [i for i in range(1, num_features + 1)]
-    curr_node = Node(features)
+    features = [i for i in range(1, num_features + 1)] #starts with full suite of features, if i = 4 then [1, 2, 3, 4]
+    curr_node = Node(features) 
     max = curr_node.get_accuracy()
-    maxPrev = curr_node.get_accuracy()
+    maxPrev = curr_node #previous node with the highest accuracy
     trace.append(curr_node)
-    print(f"Using all features and random evaluation, I get an accuracy of {max}%\n")
+    print(f"Using all features and random evaluation, I get an accuracy of {max}%\n") #print accuracy of node with all features
     while len(curr_node.subset) != 0:
-        prev = curr_node.get_prev_states(num_features)
+        prev = curr_node.get_prev_states(num_features) #get_prev_states(num_features) gets all possible nodes with num_features - 1 features. 
         explored.append(curr_node.subset)
         for node in prev:
-            if node.subset in explored:
+            if node.subset in explored: #so no repeating nodes explored, just a failsafe, unlikely to happen
                 continue
             trace.append(node)
-            accuracy = node.get_accuracy()
+            accuracy = node.get_accuracy() #runs random evaluation function, and saves the result
             print(f"Using feature(s) {node.subset} accuracy is {accuracy}%\n")
-            if(accuracy > max):
+            if(accuracy > max): #setting new max if found
                 max = accuracy
                 curr_node = node
-        if(max == maxPrev):
+        if(curr_node == maxPrev): #if the maximum node has not changed, then the maximum is assumed to have been found already
             print("Warning, accuracy has decreased!\n")
             break
-        maxPrev = max
-        print(f"Feature set {curr_node.subset} was the best with an accuracy of {max}%")
+        maxPrev = curr_node
+        print(f"Feature set {curr_node.subset} was the best with an accuracy of {max}%\n")
     print(f"Overall, Feature set {curr_node.subset} was the best with an accuracy of {max}%")        
     
 print("Welcome to Charles and Alan's Feature Selection Algorithm")
-features = int(input("Please enter total number of features"))
-algo_option = int(input("Type the number on the algorithm you want to run: 1 for foward, 2 for backward, 3 for special"))
+features = int(input("Please enter total number of features: "))
+algo_option = int(input("Type the number on the algorithm you want to run: 1 for foward, 2 for backward, 3 for special: "))
+print('\n')
 if algo_option == 1:
     trace,best_accuracy = forward(features)
     print(len(trace))
@@ -71,6 +72,7 @@ if algo_option == 1:
                 
     
 if algo_option == 2:
-    # trace = backward()
-    # print(f"use all features and \"random\" evaluation, I get an accuracy of {trace[0].accuracy} %")
-    backward(features)
+    for i in range(5):
+        print(f"Test {i + 1}\n")
+        backward(features)
+        print('\n')

@@ -14,7 +14,7 @@ def forward(feature):
             trace.append(state)
         curr_node = curr_node.get_highest_child_accuracy()
         best_accuracy.append(curr_node)
-return trace,best_accuracy
+    return trace,best_accuracy
 
 def backward(num_features):
     trace = []
@@ -41,8 +41,9 @@ def backward(num_features):
             print("Warning, accuracy has decreased!\n")
             break
         maxPrev = max
-        print(f"Feature set {curr_node.subset} was the best with an accuracy of {max}%")     
-=======
+        print(f"Feature set {curr_node.subset} was the best with an accuracy of {max}%")
+    print(f"Overall, Feature set {curr_node.subset} was the best with an accuracy of {max}%")        
+    
 print("Welcome to Charles and Alan's Feature Selection Algorithm")
 features = int(input("Please enter total number of features"))
 algo_option = int(input("Type the number on the algorithm you want to run: 1 for foward, 2 for backward, 3 for special"))

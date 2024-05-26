@@ -1,5 +1,6 @@
 from coordinate import Coordinate 
 import numpy as np
+import os
 class Classifier:
     def __init__(self):
         self = self
@@ -28,8 +29,14 @@ class Classifier:
         return
     def printCoords(self):
         for instance in self.instances:
-            print(f"{instance.label}: {instance.coords}")
+            if instance.coords.size != 10: #sanity check make sure no errors during parsing
+                print("Something is wrong")
+                break
+            print(f"Label: {instance.label}: Length: {instance.coords.size} Coords: {instance.coords}")
 
 classifier = Classifier()
-classifier.train("/Users/redditravager/Documents/cs170project2/small-test-dataset.txt")
+dirname = os.path.dirname(__file__)
+filename = os.path.join(dirname, 'small-test-dataset.txt')
+#print(f"{filename}")
+classifier.train(filename)
 classifier.printCoords()

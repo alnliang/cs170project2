@@ -28,11 +28,13 @@ class Classifier:
         
         return
     def printCoords(self):
+        count = 0
         for instance in self.instances:
+            count += 1
             if instance.coords.size != 10: #sanity check make sure no errors during parsing
-                print("Something is wrong")
+                print(f"Something is wrong at line {count}")
                 break
-            print(f"Label: {instance.label}: Length: {instance.coords.size} Coords: {instance.coords}")
+            print(f"Line {count}: Label: {instance.label}: Length: {instance.coords.size} Coords: {instance.coords}")
 
 classifier = Classifier()
 dirname = os.path.dirname(__file__)

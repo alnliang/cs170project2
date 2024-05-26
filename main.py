@@ -72,8 +72,6 @@ if algo_option == 1:
                 
     
 if algo_option == 2:
-    # trace = backward()
-    # print(f"use all features and \"random\" evaluation, I get an accuracy of {trace[0].accuracy} %")
     for i in range(5):
         print(f"Test {i + 1}\n")
         backward(features)

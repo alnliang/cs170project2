@@ -1,4 +1,5 @@
 from coordinate import Coordinate 
+import numpy as np
 class Classifier:
     def __init__(self):
         self = self
@@ -16,12 +17,14 @@ class Classifier:
             temp = []
             for number in individual:
                 temp.append(float(number))
-            coordinate = Coordinate(label, temp)
+            npTemp = np.array(temp)
+            coordinate = Coordinate(label, npTemp)
             self.instances.append(coordinate)
             #print(f"{label}")
         return
-    def test(self, instance):
+    def test(self, instance, num_features):
         #find closest point
+        
         return
     def printCoords(self):
         for instance in self.instances:

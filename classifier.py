@@ -1,6 +1,7 @@
 from coordinate import Coordinate 
 import numpy as np
 import pandas as pd
+import sys
 class Classifier:
     def __init__(self):
         self = self
@@ -25,12 +26,37 @@ class Classifier:
             self.instances.append(coordinate)
             #print(f"{label}")
         return
-    def test(self, instance, num_features):
+    def test(self, index, features):
         #find closest point
-        
-        return
+        a = []
+        b = []
+        temp = self.df.copy()
+        #print(f"{temp}")
+        temp = np.delete(temp, index, 0)
+        #print(f"{temp.size}")
+        #print(f"{temp}")
+        min = sys.maxsize
+        minIndex = 0
+        count = 0
+        for feature in features:
+            np.append(a, self.df[index][feature])
+            a.append(self.df[index][feature])
+        for point in temp:
+            for f in features:
+                np.append(b, point[f])
+                b.append(point[f])
+            res = euclideanDistance(a, b)
+            print(f"Coord {count + 1} \n\t Label: {point[0]} \n\t Distance: {res} \n\t Coords: {b} \n")
+            if(res < min):
+                min = res
+                minIndex = count
+            count += 1
+            b = []
+        print(f"Final Results: \n\t Label: {temp[minIndex][0]} \n\t Coord: {minIndex} \n\t Distance: {min}")
+        print(f"Dataset Length: {len(self.df)}, Temp Length: {len(temp)}")
+        return temp[minIndex][0]
     def printCoords(self):
-        for instance in self.instances:
+        for instance in self.df:
             print(f"{instance.label}: {instance.coords}")
     #todo for get_df make it a dataframe instead getting features will be easier later on.
     #file_name = 'small-test-dataset.txt'
@@ -62,9 +88,12 @@ class Classifier:
         return correct_count/len(self.true_labels)
 
 
+def euclideanDistance(a, b):
+    a = np.asarray(a)
+    b = np.asarray(b)
+    dist = np.linalg.norm(a - b)
+    return dist
+
 
 classifier = Classifier()
 classifier.get_df("small-test-dataset.txt")
-print(classifier.df)
-print(len(classifier.true_labels))
-#classifier.printCoords()

@@ -18,3 +18,14 @@ for row in file_content:
     string_row = row.split()
     df_row = [float(item) for item in string_row]
     df.append(df_row)
+
+array = np.array(df)
+print(array)
+array_Transpose = array.T
+print(array_Transpose)
+for i in range(1,len(array_Transpose)):
+    mean = np.mean(array_Transpose[i])
+    std_dev = np.std(array_Transpose[i])
+    array_Transpose[i] = (array_Transpose[i] - mean)/std_dev
+final_array = array_Transpose.T
+print(final_array)

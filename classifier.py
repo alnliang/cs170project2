@@ -54,9 +54,17 @@ class Classifier:
             array_Transpose[i] = (array_Transpose[i] - mean)/std_dev
         self.df = array_Transpose.T
         #part 3 make into a df to do
+    def accuracy(self, test_labels):
+        correct_count = 0
+        for i in range(1,len(test_labels)):
+            if test_labels[i] == self.true_labels[i]:
+                correct_count += 1
+        return correct_count/len(self.true_labels)
+
 
 
 classifier = Classifier()
 classifier.get_df("small-test-dataset.txt")
 print(classifier.df)
+print(len(classifier.true_labels))
 #classifier.printCoords()

@@ -32,19 +32,19 @@ class Classifier:
         b = []
         temp = self.df.copy()
         #print(f"{temp}")
-        temp = np.delete(self.df, index, 0)
+        temp = np.delete(temp, index, 0)
         #print(f"{temp.size}")
         #print(f"{temp}")
         min = sys.maxsize
         minIndex = 0
         count = 0
         for feature in features:
-            np.append(a, self.df[index][feature + 1])
-            a.append(self.df[index][feature + 1])
+            np.append(a, self.df[index][feature])
+            a.append(self.df[index][feature])
         for point in temp:
             for f in features:
-                np.append(b, point[f + 1])
-                b.append(point[f + 1])
+                np.append(b, point[f])
+                b.append(point[f])
             res = euclideanDistance(a, b)
             print(f"Coord {count + 1} \n\t Label: {point[0]} \n\t Distance: {res} \n\t Coords: {b} \n")
             if(res < min):
@@ -53,6 +53,7 @@ class Classifier:
             count += 1
             b = []
         print(f"Final Results: \n\t Label: {temp[minIndex][0]} \n\t Coord: {minIndex} \n\t Distance: {min}")
+        print(f"Dataset Length: {len(self.df)}, Temp Length: {len(temp)}")
         return temp[minIndex][0]
     def printCoords(self):
         for instance in self.df:
@@ -98,4 +99,4 @@ classifier.get_df("small-test-dataset.txt")
 # print(classifier.df)
 # print(len(classifier.true_labels))
 #classifier.printCoords()
-classifier.test(3, [2, 7, 9])
+# classifier.test(3, [2, 7, 9])

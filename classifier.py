@@ -87,6 +87,7 @@ class Classifier:
                 correct_count += 1
         return correct_count/len(self.true_labels)
 
+
 def euclideanDistance(a, b):
     a = np.asarray(a)
     b = np.asarray(b)
@@ -94,9 +95,4 @@ def euclideanDistance(a, b):
     return dist
 
 
-# classifier = Classifier()
-# classifier.get_df("small-test-dataset.txt")
-# print(classifier.df)
-# print(len(classifier.true_labels))
-#classifier.printCoords()
-# classifier.test(3, [2, 7, 9])
+

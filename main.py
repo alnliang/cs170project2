@@ -33,7 +33,7 @@ def backward(num_features):
                 continue
             trace.append(node)
             accuracy = node.get_accuracy() #runs random evaluation function, and saves the result
-            print(f"Using feature(s) {node.subset} accuracy is {accuracy}%\n")
+            print(f"\tUsing feature(s) {node.subset} accuracy is {accuracy}%\n")
             if(accuracy > max): #setting new max if found
                 max = accuracy
                 curr_node = node
@@ -50,7 +50,7 @@ algo_option = int(input("Type the number on the algorithm you want to run: 1 for
 print('\n')
 if algo_option == 1:
     trace,best_accuracy = forward(features)
-    print(len(trace))
+    #print(len(trace))
     print(f"use no features and \"random\" evaluation, I get an accuracy of {trace[0].accuracy} %")
     print("Beginning Search")
     subset = 4
@@ -72,7 +72,6 @@ if algo_option == 1:
                 
     
 if algo_option == 2:
-    for i in range(5):
-        print(f"Test {i + 1}\n")
-        backward(features)
-        print('\n')
+    backward(features)
+
+#PCA and Single Value Decomposition, K-Nearest

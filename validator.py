@@ -12,8 +12,8 @@ class Validator:
             res = self.classifier.test(i, features)
             test_labels.append(res)
         acc = self.classifier.accuracy(test_labels)
-        print(f"Accuracy of the classifier with features {features} is {acc * 100}%. \n\t The program finished running in {time.time() - start_time} seconds.")
+        #print(f"Accuracy of the classifier with features {features} is {acc * 100}%. \n\t The program finished running in {time.time() - start_time} seconds.")
         return acc
 
-validator = Validator("small-test-dataset.txt")
-validator.evaluate([3, 5, 7])
+# validator = Validator("small-test-dataset.txt")
+# validator.evaluate([3, 5, 7])

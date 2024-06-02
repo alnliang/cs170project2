@@ -46,14 +46,14 @@ class Classifier:
                 np.append(b, point[f])
                 b.append(point[f])
             res = euclideanDistance(a, b)
-            print(f"Coord {count + 1} \n\t Label: {point[0]} \n\t Distance: {res} \n\t Coords: {b} \n")
+            #print(f"Coord {count + 1} \n\t Label: {point[0]} \n\t Distance: {res} \n\t Coords: {b} \n")
             if(res < min):
                 min = res
                 minIndex = count
             count += 1
             b = []
-        print(f"Final Results: \n\t Label: {temp[minIndex][0]} \n\t Coord: {minIndex} \n\t Distance: {min}")
-        print(f"Dataset Length: {len(self.df)}, Temp Length: {len(temp)}")
+        # print(f"Final Results: \n\t Label: {temp[minIndex][0]} \n\t Coord: {minIndex} \n\t Distance: {min}")
+        # print(f"Dataset Length: {len(self.df)}, Temp Length: {len(temp)}")
         return temp[minIndex][0]
     def printCoords(self):
         for instance in self.df:
@@ -94,8 +94,8 @@ def euclideanDistance(a, b):
     return dist
 
 
-classifier = Classifier()
-classifier.get_df("small-test-dataset.txt")
+# classifier = Classifier()
+# classifier.get_df("small-test-dataset.txt")
 # print(classifier.df)
 # print(len(classifier.true_labels))
 #classifier.printCoords()

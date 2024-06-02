@@ -1,5 +1,6 @@
 import random
 import copy
+from validator import Validator
 class Node:
     def __init__(self,features):
         self.subset = features
@@ -8,8 +9,12 @@ class Node:
         self.prev = []
     #change get accuracy later, psuedo code
     def get_accuracy(self):
-        self.accuracy =round(random.random()*100,3)
-        return self.accuracy
+        # self.accuracy =round(random.random()*100,3)
+        # return self.accuracy
+        validator = Validator("CS170_Spring_2024_Small_data__22.txt")
+        temp = validator.evaluate(self.subset)
+        self.accuracy = temp * 100
+        return temp * 100
     #to get additional_feature
     def additional_feature(self, num_features):
         all_feature = [i for i in range(1, num_features + 1)]

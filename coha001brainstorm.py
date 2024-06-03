@@ -23,9 +23,53 @@ array = np.array(df)
 print(array)
 array_Transpose = array.T
 print(array_Transpose)
+# for each mean you can store in an array and just print array and std
 for i in range(1,len(array_Transpose)):
     mean = np.mean(array_Transpose[i])
     std_dev = np.std(array_Transpose[i])
     array_Transpose[i] = (array_Transpose[i] - mean)/std_dev
 final_array = array_Transpose.T
-print(final_array)
+
+
+import matplotlib.pyplot as plt
+classes = final_array[:,0]
+
+class_labels = np.unique(classes)
+
+class_counter = np.zeros(len(np.unique(classes)))
+#data visualiztion for each class
+print(len(class_counter))
+for label in class_labels:
+    print(label)
+    print(int(label))
+for i in range(len(classes)):
+    for label in class_labels:
+        if classes[i] == label:
+            class_counter[int(label)-1] += 1
+plt.figure(figsize=(8, 6))
+plt.bar(class_labels, class_counter, color='skyblue')
+plt.title('Instance Count per Class')
+plt.xlabel('Class Labels')
+plt.ylabel('Instance Count')
+plt.grid(axis='y')
+plt.show()
+import matplotlib.pyplot as plt
+
+# Assuming your data is stored in a variable called 'data'
+# Extract class labels and features
+class_labels = final_array[:, 0]
+features = final_array[:, 1:]
+
+# Plot each data point with color based on its class label
+for i in range(len(class_labels)):
+    if class_labels[i] == 1:
+        plt.scatter(features[i, 0], features[i, 1], color='red')
+    elif class_labels[i] == 2:
+        plt.scatter(features[i, 0], features[i, 1], color='blue')
+    else:
+        plt.scatter(features[i, 0], features[i, 1], color='green')
+
+plt.xlabel('Feature 1')
+plt.ylabel('Feature 2')
+plt.title('Data colored by class')
+plt.show()

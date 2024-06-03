@@ -79,7 +79,7 @@ class Classifier:
             std_dev = np.std(array_Transpose[i])
             array_Transpose[i] = (array_Transpose[i] - mean)/std_dev
         self.df = array_Transpose.T
-        #part 3 make into a df to do
+
     def accuracy(self, test_labels):
         correct_count = 0
         for i in range(1,len(test_labels)):

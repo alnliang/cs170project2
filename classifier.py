@@ -26,11 +26,11 @@ class Classifier:
             self.instances.append(coordinate)
             #print(f"{label}")
         return
-    def test(self, index, features):
+    def test(self, index, features, dataframe):
         #find closest point
         a = []
         b = []
-        temp = self.df.copy()
+        temp = dataframe.copy()
         #print(f"{temp}")
         temp = np.delete(temp, index, 0)
         #print(f"{temp.size}")
@@ -54,7 +54,7 @@ class Classifier:
             b = []
         # print(f"Final Results: \n\t Label: {temp[minIndex][0]} \n\t Coord: {minIndex} \n\t Distance: {min}")
         # print(f"Dataset Length: {len(self.df)}, Temp Length: {len(temp)}")
-        return temp[minIndex][0]
+        return minIndex
     def printCoords(self):
         for instance in self.df:
             print(f"{instance.label}: {instance.coords}")
@@ -86,6 +86,25 @@ class Classifier:
             if test_labels[i] == self.true_labels[i]:
                 correct_count += 1
         return correct_count/len(self.true_labels)
+    def KNearest(self, index, features, K):
+        count1 = 0
+        count2 = 0
+        temp = self.df.copy()
+        for i in range(K):
+            res = self.test(index, features, temp)
+            if temp[res][0] == 2:
+                count2 += 1
+            else:
+                count1 += 1
+            if(res < index):
+                index -= 1
+            temp = np.delete(temp, res, 0)
+        # print(f"\tNumber of 1 labels: {count1}")
+        # print(f"\tNumber of 2 labels: {count2}")
+        if(count1 > count2):
+            return 1
+        if(count2 > count1):
+            return 2
 
 
 def euclideanDistance(a, b):
@@ -95,4 +114,10 @@ def euclideanDistance(a, b):
     return dist
 
 
+# classifier = Classifier()
+# classifier.get_df("small-test-dataset.txt")
+# for i in range(len(classifier.df)):
+#     print(f"Coordinate number {i+1}")
+#     classifier.KNearest(i, [3, 5, 7], 5)
+#     print('\n')
 

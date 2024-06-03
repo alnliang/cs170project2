@@ -2,18 +2,27 @@ from node import Node
 import random
 def forward(feature):
     trace = []
-    best_accuracy = []
     curr_node = Node([])
     curr_node.get_accuracy()
+    best_accuracy = curr_node.accuracy
+    print(f"use no features and \"random\" evaluation, I get an accuracy of {curr_node.accuracy} %")
+    print("Beginning Search")
     trace.append(curr_node)
-    best_accuracy.append(curr_node)
     while len(curr_node.subset) != feature:
         curr_node.get_next_states(feature)
         for state in curr_node.next:
             state.get_accuracy()
-            trace.append(state)
+            print(f"Using features ({state.subset}) accuracy is {state.accuracy} %")
+        prev_node = curr_node
         curr_node = curr_node.get_highest_child_accuracy()
-        best_accuracy.append(curr_node)
+        print(f"Feature set was best {curr_node.subset}, accuracy is  {curr_node.accuracy}")
+        if curr_node.accuracy > best_accuracy:
+            best_accuracy = curr_node.accuracy
+        else:
+            print("(Warning Accuracy Decreased)")
+            print(f"Finished Search !! The best feature subset is {prev_node.subset}, accuracy is  {prev_node.accuracy}")
+            break
+            
     return trace,best_accuracy
 
 def backward(num_features):
@@ -43,19 +52,15 @@ def backward(num_features):
         maxPrev = curr_node
         print(f"Feature set {curr_node.subset} was the best with an accuracy of {max}%\n")
     print(f"Overall, Feature set {curr_node.subset} was the best with an accuracy of {max}%")        
-    
+def backward_and_forward(num_features):
+    return 
 print("Welcome to Charles and Alan's Feature Selection Algorithm")
 features = int(input("Please enter total number of features: "))
 algo_option = int(input("Type the number on the algorithm you want to run: 1 for foward, 2 for backward, 3 for special: "))
 print('\n')
 if algo_option == 1:
     trace,best_accuracy = forward(features)
-    print(len(trace))
-    print(f"use no features and \"random\" evaluation, I get an accuracy of {trace[0].accuracy} %")
-    print("Beginning Search")
-    subset = 4
-    best_acc_index = 1
-    count = 0
+    
 
     for i in range(1,len(trace)):
         count = count + 1

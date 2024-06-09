@@ -1,11 +1,13 @@
 import pandas as pd
 import numpy as np
+import seaborn as sns
+import matplotlib.pyplot as plt
 #for the current test cases the first column is row 1 and row 2
 class NNClassflier():
     def __init__(self,file_name):
         self.file_name = file_name
         self.df = pd.DataFrame()
-file_name = 'small-test-dataset.txt'
+file_name = 'large-test-dataset.txt'
 file = open(file_name, "r")
 file_content = file.readlines()
 # ideal state
@@ -31,7 +33,6 @@ for i in range(1,len(array_Transpose)):
 final_array = array_Transpose.T
 
 
-import matplotlib.pyplot as plt
 classes = final_array[:,0]
 
 class_labels = np.unique(classes)
@@ -55,21 +56,49 @@ plt.grid(axis='y')
 plt.show()
 import matplotlib.pyplot as plt
 
-# Assuming your data is stored in a variable called 'data'
-# Extract class labels and features
+
 class_labels = final_array[:, 0]
 features = final_array[:, 1:]
 
-# Plot each data point with color based on its class label
+
 for i in range(len(class_labels)):
     if class_labels[i] == 1:
-        plt.scatter(features[i, 0], features[i, 1], color='red')
+        plt.scatter(features[i, 22], features[i, 35], color='red')
     elif class_labels[i] == 2:
-        plt.scatter(features[i, 0], features[i, 1], color='blue')
+        plt.scatter(features[i, 22], features[i, 35], color='blue')
     else:
         plt.scatter(features[i, 0], features[i, 1], color='green')
 
-plt.xlabel('Feature 1')
-plt.ylabel('Feature 2')
+plt.xlabel('Feature 23')
+plt.ylabel('Feature 36')
 plt.title('Data colored by class')
 plt.show()
+for i in range(len(class_labels)):
+    if class_labels[i] == 1:
+        plt.scatter(features[i, 15], features[i, 28], color='red')
+    elif class_labels[i] == 2:
+        plt.scatter(features[i, 15], features[i, 28], color='blue')
+    else:
+        plt.scatter(features[i, 15], features[i, 28], color='green')
+
+plt.xlabel('Feature 16')
+plt.ylabel('Feature 29')
+plt.title('Data colored by class')
+plt.show()
+for i in range(len(class_labels)):
+    if class_labels[i] == 1:
+        plt.scatter(features[i, 27], features[i, 32], color='red')
+    elif class_labels[i] == 2:
+        plt.scatter(features[i, 27], features[i, 32], color='blue')
+    else:
+        plt.scatter(features[i, 27], features[i, 32], color='green')
+
+plt.xlabel('Feature 28')
+plt.ylabel('Feature 33')
+plt.title('Data colored by class')
+corr_matrix = np.corrcoef(features, rowvar=False)
+plt.show()
+# #use that only for large data set
+# #plt.figure(figsize=(22, 20))
+# sns.heatmap(corr_matrix, annot=True, fmt=".2f", cmap='viridis', linewidths=.5, linecolor='white', cbar=True, cbar_kws={'shrink': 0.8})
+# plt.show()

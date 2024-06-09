@@ -48,6 +48,51 @@ def backward(num_features):
         maxPrev = curr_node
         print(f"Feature set {curr_node.subset} was the best with an accuracy of {max}%\n")
     print(f"Overall, Feature set {curr_node.subset} was the best with an accuracy of {max}%")        
+def forward_backward(feature_count):
+    print("Beginning Combined Search")
+
+    forward_curr_node = Node([])
+    forward_best_accuracy = forward_curr_node.get_accuracy()
+    print(f"Use no features and \"random\" evaluation, I get an accuracy of {forward_curr_node.accuracy:.2f} %")
+
+    backward_curr_node = Node([i for i in range(1, feature_count + 1)])
+    backward_best_accuracy = backward_curr_node.get_accuracy()
+    print(f"Using all features and \"random\" evaluation, I get an accuracy of {backward_curr_node.accuracy:.2f} %")
+
+    while True:
+        forward_curr_node.get_next_states(feature_count)
+        for state in forward_curr_node.next:
+            state.get_accuracy()
+            print(f"Using features ({state.subset}) accuracy is {state.accuracy:.2f} %")
+
+        forward_prev_node = forward_curr_node
+        forward_curr_node = forward_curr_node.get_highest_child_accuracy()
+        print(f"Forward feature set was best {forward_curr_node.subset}, accuracy is {forward_curr_node.accuracy:.2f} %")
+        if forward_curr_node.accuracy > forward_best_accuracy:
+            forward_best_accuracy = forward_curr_node.accuracy
+        else:
+            print("(Warning Accuracy Decreased)")
+            print(f"Finished Forward Search! The best feature subset is {forward_prev_node.subset}, accuracy is {forward_prev_node.accuracy:.2f} %")
+            break
+
+        backward_prev_states = backward_curr_node.get_prev_states(feature_count)
+        for node in backward_prev_states:
+            node.get_accuracy()
+            print(f"Using features ({node.subset}) accuracy is {node.accuracy:.2f} %")
+            if node.accuracy > backward_best_accuracy:
+                backward_best_accuracy = node.accuracy
+                backward_curr_node = node
+
+        print(f"Backward feature set was best {backward_curr_node.subset}, accuracy is {backward_curr_node.accuracy:.2f} %")
+        if backward_curr_node.accuracy < backward_best_accuracy:
+            print("(Warning Accuracy Decreased)")
+            print(f"Finished Backward Search! The best feature subset is {backward_curr_node.subset}, accuracy is {backward_curr_node.accuracy:.2f} %")
+            break
+
+    final_best_subset = forward_curr_node.subset if forward_best_accuracy >= backward_best_accuracy else backward_curr_node.subset
+    final_best_accuracy = max(forward_best_accuracy, backward_best_accuracy)
+    print(f"Overall, the best feature subset is {final_best_subset}, with an accuracy of {final_best_accuracy:.2f} %")
+    return
 
 print("Welcome to Charles and Alan's Feature Selection Algorithm")
 features = int(input("Please enter total number of features: "))
@@ -58,4 +103,4 @@ if algo_option == 1:
 if algo_option == 2:
     backward(features)
 if algo_option == 3:
-    print("tbd")
+    forward_backward(features)

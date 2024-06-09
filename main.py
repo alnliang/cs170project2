@@ -38,7 +38,7 @@ def backward(num_features):
                 continue
             trace.append(node)
             accuracy = node.get_accuracy() #runs random evaluation function, and saves the result
-            print(f"Using feature(s) {node.subset} accuracy is {accuracy}%\n")
+            print(f"\tUsing feature(s) {node.subset} accuracy is {accuracy}%\n")
             if(accuracy > max): #setting new max if found
                 max = accuracy
                 curr_node = node
@@ -104,3 +104,4 @@ if algo_option == 2:
     backward(features)
 if algo_option == 3:
     forward_backward(features)
+

@@ -3,7 +3,7 @@ import random
 def forward(feature):
     curr_node = Node([])
     best_accuracy = curr_node.get_accuracy()
-    print(f"use no features and \"random\" evaluation, I get an accuracy of {curr_node.accuracy} %")
+    print(f"use no features and 1-nearest neighbor evaluation, I get an accuracy of {curr_node.accuracy} %")
     print("Beginning Search")
     while len(curr_node.subset) != feature:
         curr_node.get_next_states(feature)
@@ -29,7 +29,7 @@ def backward(num_features):
     max = curr_node.get_accuracy()
     maxPrev = curr_node #previous node with the highest accuracy
     trace.append(curr_node)
-    print(f"Using all features and random evaluation, I get an accuracy of {max}%\n") #print accuracy of node with all features
+    print(f"Using all features and 1-Nearest Neighbor evaluation, I get an accuracy of {max}%\n") #print accuracy of node with all features
     while len(curr_node.subset) != 0:
         prev = curr_node.get_prev_states(num_features) #get_prev_states(num_features) gets all possible nodes with num_features - 1 features. 
         explored.append(curr_node.subset)

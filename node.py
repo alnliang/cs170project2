@@ -9,8 +9,6 @@ class Node:
         self.prev = []
     #change get accuracy later, psuedo code
     def get_accuracy(self):
-        # self.accuracy =round(random.random()*100,3)
-        # return self.accuracy
         validator = Validator("CS170_Spring_2024_Small_data__22.txt")
         temp = validator.evaluate(self.subset)
         self.accuracy = temp * 100
@@ -63,4 +61,3 @@ class Node:
 # n5 = Node([1,2,3,4])
 # print(len(n1.subset))
         
-

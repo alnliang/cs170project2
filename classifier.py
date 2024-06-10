@@ -26,11 +26,11 @@ class Classifier:
             self.instances.append(coordinate)
             #print(f"{label}")
         return
-    def test(self, index, features, dataframe):
+    def test(self, index, features):
         #find closest point
         a = []
         b = []
-        temp = dataframe.copy()
+        temp = self.df.copy()
         #print(f"{temp}")
         temp = np.delete(temp, index, 0)
         #print(f"{temp.size}")
@@ -52,9 +52,9 @@ class Classifier:
                 minIndex = count
             count += 1
             b = []
-        # print(f"Final Results: \n\t Label: {temp[minIndex][0]} \n\t Coord: {minIndex} \n\t Distance: {min}")
-        # print(f"Dataset Length: {len(self.df)}, Temp Length: {len(temp)}")
-        return minIndex
+        #print(f"Final Results: \n\t Label: {temp[minIndex][0]} \n\t Coord: {minIndex} \n\t Distance: {min}")
+        #print(f"Dataset Length: {len(self.df)}, Temp Length: {len(temp)}")
+        return temp[minIndex][0]
     def printCoords(self):
         for instance in self.df:
             print(f"{instance.label}: {instance.coords}")
@@ -79,33 +79,52 @@ class Classifier:
             std_dev = np.std(array_Transpose[i])
             array_Transpose[i] = (array_Transpose[i] - mean)/std_dev
         self.df = array_Transpose.T
-        #part 3 make into a df to do
+
     def accuracy(self, test_labels):
         correct_count = 0
         for i in range(1,len(test_labels)):
             if test_labels[i] == self.true_labels[i]:
                 correct_count += 1
         return correct_count/len(self.true_labels)
+    
     def KNearest(self, index, features, K):
+        point = self.df[index]
+        temp = self.df.copy()
+        temp = np.delete(temp, index, 0)
+        a = []
+        b = []
+        res = []
+        for feature in features:
+            a.append(point[feature])
+        for coord in temp:
+            label = coord[0]
+            for f in features:
+                b.append(coord[f])
+            # print(a)
+            # print('\n')
+            # print(b)
+            dist = euclideanDistance(a, b)
+            b = []
+            temp1 = [label, dist]
+            res.append(temp1)
+        npres = np.asarray(res)
+        sorted_array = npres[npres[:, 1].argsort()]
         count1 = 0
         count2 = 0
-        temp = self.df.copy()
         for i in range(K):
-            res = self.test(index, features, temp)
-            if temp[res][0] == 2:
-                count2 += 1
-            else:
+            curr = sorted_array[i]
+            if(curr[0] == 1):
                 count1 += 1
-            if(res < index):
-                index -= 1
-            temp = np.delete(temp, res, 0)
-        # print(f"\tNumber of 1 labels: {count1}")
-        # print(f"\tNumber of 2 labels: {count2}")
+            else:
+                count2 += 1
+        #print(sorted_array)
         if(count1 > count2):
+            #print("1")
             return 1
-        if(count2 > count1):
+        else:
+            #print("2")
             return 2
-
+        
 
 def euclideanDistance(a, b):
     a = np.asarray(a)
@@ -113,6 +132,9 @@ def euclideanDistance(a, b):
     dist = np.linalg.norm(a - b)
     return dist
 
+# classifier = Classifier()
+# classifier.get_df("small-test-dataset.txt")
+# classifier.KNearest(1, [3, 5, 7], 4)
 
 # classifier = Classifier()
 # classifier.get_df("small-test-dataset.txt")

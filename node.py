@@ -8,9 +8,10 @@ class Node:
         self.next = []
         self.prev = []
     #change get accuracy later, psuedo code
-    def get_accuracy(self):
+    def get_accuracy(self, K):
         validator = Validator("CS170_Spring_2024_Small_data__22.txt")
-        temp = validator.evaluate(self.subset)
+        # validator = Validator("small-test-dataset.txt")
+        temp = validator.evaluate(self.subset, K)
         self.accuracy = temp * 100
         return temp * 100
     #to get additional_feature

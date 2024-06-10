@@ -4,7 +4,7 @@ class Validator:
     def __init__(self, dataset):
         self.classifier = Classifier()
         self.classifier.get_df(dataset)
-    def evaluate(self, features):
+    def evaluate(self, features, K):
         if(len(features) == 0):
             count1 = 0
             count2 = 0
@@ -21,7 +21,7 @@ class Validator:
         test_labels = []
         #will find accuracy of classifier given feature subset
         for i in range(len(self.classifier.df)):
-            res = self.classifier.KNearest(i, features, 1)
+            res = self.classifier.KNearest(i, features, K)
             test_labels.append(res)
         acc = self.classifier.accuracy(test_labels)
         #print(f"Accuracy of the classifier with features {features} is {acc * 100}%. \n\t The program finished running in {time.time() - start_time} seconds.")
